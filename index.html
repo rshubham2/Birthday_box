@@ -13,7 +13,7 @@
   <!-- Open Graph Meta Tags (Facebook, LinkedIn, WhatsApp) -->
   <meta property="og:title" content="Happy 25th Birthday Princess! 🎁">
   <meta property="og:description" content="A special birthday surprise with a heartfelt message. Click the gift box to open your birthday card!">
-  <meta property="og:image" content="https://images.unsplash.com/photo-1513885535751-8b9238bd345a?w=1200&h=630&fit=crop">
+  <meta property="og:image" content="./assets/photo6.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="Birthday Gift Box">
@@ -25,7 +25,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Happy 25th Birthday Princess! 🎁">
   <meta name="twitter:description" content="A special birthday surprise with a heartfelt message. Click the gift box to open your birthday card!">
-  <meta name="twitter:image" content="https://images.unsplash.com/photo-1513885535751-8b9238bd345a?w=1200&h=630&fit=crop">
+  <meta name="twitter:image" content="./assets/photo6.jpg">
   
   <!-- Additional Meta Tags -->
   <meta name="theme-color" content="#cc231e">
@@ -33,9 +33,12 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="apple-mobile-web-app-title" content="Birthday Surprise">
   
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
   <style>
     body {
-      background: black;
+      background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #bae6fd 100%);
       margin: 0;
       padding: 0;
       min-height: 100vh;
@@ -527,9 +530,9 @@
 
     .polaroid {
       position: absolute;
-      width: 110px;
+      width: 150px;
       background: white;
-      padding: 8px 8px 35px 8px;
+      padding: 12px 12px 45px 12px;
       box-shadow: 0 6px 20px rgba(0,0,0,0.4), 0 2px 8px rgba(0,0,0,0.2);
       opacity: 0;
       transition: all 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -538,8 +541,8 @@
 
     @media (max-width: 768px) {
       .polaroid {
-        width: 85px;
-        padding: 6px 6px 28px 6px;
+        width: 120px;
+        padding: 10px 10px 38px 10px;
       }
     }
 
@@ -554,107 +557,107 @@
       opacity: 1;
     }
 
-    /* Realistic scattered positioning with overlapping effects */
-    /* Top Left Corner - 2 photos */
+    /* No overlapping - proper spacing using top/bottom/left/right */
+    /* Top Edge - 2 photos */
     .polaroid-1 {
-      top: 8%;
-      left: 5%;
-      transform: rotate(-12deg) translateY(120px);
-      z-index: 3;
+      top: 2%;
+      left: 10%;
+      transform: rotate(-5deg) translateY(120px);
+      z-index: 1;
     }
     .polaroid-1.visible {
-      transform: rotate(-12deg) translateY(0);
+      transform: rotate(-5deg) translateY(0);
       transition-delay: 0.1s;
     }
 
     .polaroid-2 {
-      top: 12%;
-      left: 12%;
-      transform: rotate(8deg) translateY(120px);
-      z-index: 2;
+      top: 2%;
+      right: 10%;
+      transform: rotate(5deg) translateY(120px);
+      z-index: 1;
     }
     .polaroid-2.visible {
+      transform: rotate(5deg) translateY(0);
+      transition-delay: 0.2s;
+    }
+
+    /* Right Edge - 2 photos */
+    .polaroid-3 {
+      top: 20%;
+      right: 2%;
+      transform: rotate(8deg) translateY(120px);
+      z-index: 1;
+    }
+    .polaroid-3.visible {
       transform: rotate(8deg) translateY(0);
       transition-delay: 0.3s;
     }
 
-    /* Top Right Corner - 2 photos */
-    .polaroid-3 {
-      top: 10%;
-      right: 8%;
-      transform: rotate(15deg) translateY(120px);
-      z-index: 4;
-    }
-    .polaroid-3.visible {
-      transform: rotate(15deg) translateY(0);
-      transition-delay: 0.2s;
-    }
-
     .polaroid-4 {
-      top: 6%;
-      right: 15%;
-      transform: rotate(-5deg) translateY(120px);
+      bottom: 20%;
+      right: 2%;
+      transform: rotate(-8deg) translateY(120px);
       z-index: 1;
     }
     .polaroid-4.visible {
-      transform: rotate(-5deg) translateY(0);
+      transform: rotate(-8deg) translateY(0);
       transition-delay: 0.4s;
     }
 
-    /* Bottom Left Corner - 2 photos */
+    /* Bottom Edge - 2 photos */
     .polaroid-5 {
-      bottom: 15%;
-      left: 8%;
-      transform: rotate(-8deg) translateY(120px);
-      z-index: 2;
+      bottom: 2%;
+      left: 10%;
+      transform: rotate(-5deg) translateY(120px);
+      z-index: 1;
     }
     .polaroid-5.visible {
-      transform: rotate(-8deg) translateY(0);
+      transform: rotate(-5deg) translateY(0);
       transition-delay: 0.5s;
     }
 
     .polaroid-6 {
-      bottom: 8%;
-      left: 15%;
-      transform: rotate(12deg) translateY(120px);
-      z-index: 3;
+      bottom: 2%;
+      right: 10%;
+      transform: rotate(5deg) translateY(120px);
+      z-index: 1;
     }
     .polaroid-6.visible {
-      transform: rotate(12deg) translateY(0);
-      transition-delay: 0.7s;
+      transform: rotate(5deg) translateY(0);
+      transition-delay: 0.6s;
     }
 
-    /* Bottom Right Corner - 1 photo */
+    /* Left Edge - 1 photo */
     .polaroid-7 {
-      bottom: 12%;
-      right: 10%;
-      transform: rotate(-15deg) translateY(120px);
+      top: 50%;
+      left: 2%;
+      transform: rotate(-10deg) translateY(120px);
       z-index: 1;
     }
     .polaroid-7.visible {
-      transform: rotate(-15deg) translateY(0);
-      transition-delay: 0.6s;
+      transform: rotate(-10deg) translateY(0);
+      transition-delay: 0.7s;
     }
 
     /* Mobile responsive adjustments */
     @media (max-width: 768px) {
-      .polaroid-1 { top: 5%; left: 3%; }
-      .polaroid-2 { top: 8%; left: 8%; }
-      .polaroid-3 { top: 6%; right: 5%; }
-      .polaroid-4 { top: 3%; right: 12%; }
-      .polaroid-5 { bottom: 12%; left: 5%; }
-      .polaroid-6 { bottom: 5%; left: 12%; }
-      .polaroid-7 { bottom: 8%; right: 7%; }
+      .polaroid-1 { top: 1%; left: 5%; }
+      .polaroid-2 { top: 1%; right: 5%; }
+      .polaroid-3 { top: 15%; right: 1%; }
+      .polaroid-4 { bottom: 15%; right: 1%; }
+      .polaroid-5 { bottom: 1%; left: 5%; }
+      .polaroid-6 { bottom: 1%; right: 5%; }
+      .polaroid-7 { top: 50%; left: 1%; }
     }
 
     @media (max-width: 480px) {
-      .polaroid-1 { top: 3%; left: 2%; }
-      .polaroid-2 { top: 6%; left: 6%; }
-      .polaroid-3 { top: 4%; right: 3%; }
-      .polaroid-4 { top: 1%; right: 10%; }
-      .polaroid-5 { bottom: 10%; left: 3%; }
-      .polaroid-6 { bottom: 3%; left: 10%; }
-      .polaroid-7 { bottom: 6%; right: 5%; }
+      .polaroid-1 { top: 0.5%; left: 3%; }
+      .polaroid-2 { top: 0.5%; right: 3%; }
+      .polaroid-3 { top: 12%; right: 0.5%; }
+      .polaroid-4 { bottom: 12%; right: 0.5%; }
+      .polaroid-5 { bottom: 0.5%; left: 3%; }
+      .polaroid-6 { bottom: 0.5%; right: 3%; }
+      .polaroid-7 { top: 50%; left: 0.5%; }
     }
   </style>
 </head>

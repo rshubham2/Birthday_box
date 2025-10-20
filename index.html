@@ -376,9 +376,36 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      cursor: zoom-in;
     }
 
     /* captions removed for image-only polaroids */
+
+    /* Lightbox */
+    .lightbox {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.85);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .lightbox.open {
+      display: flex;
+    }
+
+    .lightbox img {
+      max-width: 92vw;
+      max-height: 92vh;
+      border-radius: 12px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+      cursor: zoom-out;
+    }
 
     /* Polaroid Positioning */
     .polaroid-1 {
@@ -643,6 +670,35 @@
           }, 1800);
         }, 100);
       }
+    });
+    // Lightbox zoom for polaroid images
+    const lightbox = document.createElement('div');
+    lightbox.className = 'lightbox';
+    const lightboxImg = document.createElement('img');
+    lightbox.appendChild(lightboxImg);
+    document.body.appendChild(lightbox);
+
+    function openLightbox(src, alt) {
+      lightboxImg.src = src;
+      lightboxImg.alt = alt || '';
+      lightbox.classList.add('open');
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('open');
+      lightboxImg.src = '';
+    }
+
+    document.querySelectorAll('.polaroid-image img').forEach(img => {
+      img.addEventListener('click', (e) => {
+        e.stopPropagation();
+        openLightbox(img.src, img.alt);
+      });
+    });
+
+    lightbox.addEventListener('click', closeLightbox);
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeLightbox();
     });
   </script>
 </body>

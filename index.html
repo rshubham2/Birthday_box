@@ -649,6 +649,7 @@
   <script>
     const giftBox = document.getElementById('giftBox');
     const letterImage = document.getElementById('letterImage');
+      const bgMusic = document.getElementById('bgMusic');
     
     giftBox.addEventListener('click', function() {
       if (!this.classList.contains('open')) {
@@ -669,8 +670,42 @@
             letterImage.classList.add('opened');
           }, 1800);
         }, 100);
+
+          // Start background music on first interaction to satisfy autoplay policies
+          if (bgMusic && bgMusic.paused) {
+            bgMusic.volume = 0.5;
+            bgMusic.loop = true;
+            const playPromise = bgMusic.play();
+            if (playPromise && typeof playPromise.then === 'function') {
+              playPromise.catch(() => {
+                // Silently ignore if the browser blocks; user can interact again
+              });
+            }
+          }
       }
     });
+
+      // Try to autoplay on load with graceful fallback to first user interaction
+      function tryStartMusicOnce() {
+        if (!bgMusic) return;
+        bgMusic.volume = 0.5;
+        bgMusic.loop = true;
+        const playPromise = bgMusic.play();
+        if (playPromise && typeof playPromise.then === 'function') {
+          playPromise.catch(() => {
+            // If blocked, start on first pointer/keyboard interaction
+            const resume = () => {
+              bgMusic.play().catch(() => {});
+              window.removeEventListener('pointerdown', resume);
+              window.removeEventListener('keydown', resume);
+            };
+            window.addEventListener('pointerdown', resume, { once: true });
+            window.addEventListener('keydown', resume, { once: true });
+          });
+        }
+      }
+
+      window.addEventListener('load', tryStartMusicOnce);
     // Lightbox zoom for polaroid images
     const lightbox = document.createElement('div');
     lightbox.className = 'lightbox';
@@ -701,5 +736,8 @@
       if (e.key === 'Escape') closeLightbox();
     });
   </script>
+  
+  <!-- Background Music (will start on first click) -->
+  <audio id="bgMusic" src="assets/happy_birthday_tone.mp3" preload="auto" autoplay loop playsinline></audio>
 </body>
 </html>

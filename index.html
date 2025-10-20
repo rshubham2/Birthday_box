@@ -6,13 +6,14 @@
   <title>Gift Box</title>
   <style>
     body {
-      background: black;
+      background: oklch(90.1% 0.058 230.902);
       margin: 0;
       padding: 0;
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
+      overflow: hidden;
     }
 
     .container {
@@ -29,6 +30,8 @@
 
     .box {
       position: relative;
+      transform: scale(clamp(0.3, 0.2vw + 0.4, 1));
+      transform-origin: center center;
     }
 
     .box::before {
@@ -150,6 +153,38 @@
 
     .letter-image.visible {
       animation: envelope-rise 1s 0.8s ease-out forwards;
+    }
+
+    .polaroid.visible {
+      animation: polaroid-pop 0.8s ease-out forwards;
+    }
+
+    .polaroid-1.visible {
+      animation: polaroid-pop 0.8s 1.2s ease-out forwards;
+    }
+
+    .polaroid-2.visible {
+      animation: polaroid-pop 0.8s 1.4s ease-out forwards;
+    }
+
+    .polaroid-3.visible {
+      animation: polaroid-pop 0.8s 1.6s ease-out forwards;
+    }
+
+    .polaroid-4.visible {
+      animation: polaroid-pop 0.8s 1.8s ease-out forwards;
+    }
+
+    .polaroid-5.visible {
+      animation: polaroid-pop 0.8s 2.0s ease-out forwards;
+    }
+
+    .polaroid-6.visible {
+      animation: polaroid-pop 0.8s 2.2s ease-out forwards;
+    }
+
+    .polaroid-7.visible {
+      animation: polaroid-pop 0.8s 2.4s ease-out forwards;
     }
 
     .animated-mail {
@@ -295,6 +330,80 @@
       width: 250px;
     }
 
+    /* Polaroid Styles */
+    .polaroid {
+      position: fixed;
+      width: clamp(90px, 12vw, 150px);
+      height: clamp(120px, 16vw, 200px);
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.4s, visibility 0.4s;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .polaroid-image {
+      width: 100%;
+      height: 100%;
+      border-radius: 8px;
+      overflow: hidden;
+      background: transparent;
+    }
+
+    .polaroid-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* captions removed for image-only polaroids */
+
+    /* Polaroid Positioning */
+    .polaroid-1 {
+      top: 20px;
+      left: 20px;
+      transform: rotate(-15deg);
+    }
+
+    .polaroid-2 {
+      top: 20px;
+      right: 20px;
+      transform: rotate(15deg);
+    }
+
+    .polaroid-3 {
+      top: 35%;
+      left: 5px;
+      transform: translateY(-50%) rotate(-10deg);
+    }
+
+    .polaroid-4 {
+      top: 50%;
+      right: 5px;
+      transform: translateY(-50%) rotate(10deg);
+    }
+
+    .polaroid-5 {
+      bottom: 20px;
+      left: 20px;
+      transform: rotate(-20deg);
+    }
+
+    .polaroid-6 {
+      bottom: 20px;
+      right: 20px;
+      transform: rotate(20deg);
+    }
+
+    .polaroid-7 {
+      bottom: 20px;
+      left: 38%;
+      transform: translateX(-50%) rotate(-5deg);
+    }
+
     @keyframes box-lid {
       0%, 42% {
         transform: translate3d(-50%, 0%, 0) rotate(0deg);
@@ -365,13 +474,58 @@
         opacity: 1;
       }
     }
+
+    @keyframes polaroid-pop {
+      0% {
+        opacity: 0;
+        visibility: visible;
+        transform: scale(0) rotate(var(--rotation, 0deg));
+      }
+      50% {
+        transform: scale(1.1) rotate(var(--rotation, 0deg));
+      }
+      100% {
+        opacity: 1;
+        visibility: visible;
+        transform: scale(1) rotate(var(--rotation, 0deg));
+      }
+    }
+
+    /* Responsive Media Queries */
+    @media (max-width: 480px) {
+      .box {
+        transform: scale(0.8);
+      }
+      
+      body {
+        padding: 10px;
+      }
+    }
+
+    @media (min-width: 481px) and (max-width: 768px) {
+      .box {
+        transform: scale(0.5);
+      }
+    }
+
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .box {
+        transform: scale(0.7);
+      }
+    }
+
+    @media (min-width: 1025px) {
+      .box {
+        transform: scale(1);
+      }
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <div class="d-flex justify-content-center">
       <div class="box">
-        <div class="box-body" id="giftBox">
+          <div class="box-body" id="giftBox">
           <div class="letter-image" id="letterImage">
             <div class="animated-mail">
               <div class="back-fold"></div>
@@ -394,11 +548,55 @@
             </div>
             <div class="shadow"></div>
           </div>
+          
           <div class="box-lid">
             <div class="box-bowtie"></div>
           </div>
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- Polaroid Photos -->
+  <div class="polaroid polaroid-1" id="polaroid1">
+    <div class="polaroid-image">
+      <img src="assets/photo1.jpg" alt="Memory 1">
+    </div>
+  </div>
+  
+  <div class="polaroid polaroid-2" id="polaroid2">
+    <div class="polaroid-image">
+      <img src="assets/photo2.jpg" alt="Memory 2">
+    </div>
+  </div>
+  
+  <div class="polaroid polaroid-3" id="polaroid3">
+    <div class="polaroid-image">
+      <img src="assets/photo3.jpg" alt="Memory 3">
+    </div>
+  </div>
+  
+  <div class="polaroid polaroid-4" id="polaroid4">
+    <div class="polaroid-image">
+      <img src="assets/photo4.jpg" alt="Memory 4">
+    </div>
+  </div>
+  
+  <div class="polaroid polaroid-5" id="polaroid5">
+    <div class="polaroid-image">
+      <img src="assets/photo5.jpg" alt="Memory 5">
+    </div>
+  </div>
+  
+  <div class="polaroid polaroid-6" id="polaroid6">
+    <div class="polaroid-image">
+      <img src="assets/photo6.jpg" alt="Memory 6">
+    </div>
+  </div>
+  
+  <div class="polaroid polaroid-7" id="polaroid7">
+    <div class="polaroid-image">
+      <img src="assets/photo7.jpg" alt="Memory 7">
     </div>
   </div>
 
@@ -412,6 +610,14 @@
         
         setTimeout(() => {
           letterImage.classList.add('visible');
+          
+          // Trigger polaroid animations with staggered timing
+          const polaroids = ['polaroid1', 'polaroid2', 'polaroid3', 'polaroid4', 'polaroid5', 'polaroid6', 'polaroid7'];
+          polaroids.forEach((id, index) => {
+            setTimeout(() => {
+              document.getElementById(id).classList.add('visible');
+            }, 1200 + (index * 200));
+          });
           
           setTimeout(() => {
             letterImage.classList.add('opened');
